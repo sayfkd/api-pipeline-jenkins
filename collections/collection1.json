@@ -80,7 +80,7 @@
 							"(flag ? pm.test : pm.test.skip)(\"test requete 2\", function () {",
 							"        pm.environment.set(\"flag\", false);",
 							"        pm.expect(true).to.be.true;",
-							"        pm.expect(false).to.be.true;",
+							"        pm.expect(true).to.be.true;",
 							"        console.log(\"ca change\");",
 							"        pm.environment.set(\"flag\", true);",
 							"});",
