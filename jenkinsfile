@@ -9,14 +9,13 @@ pipeline {
     stages {
         stage('Test API') {
             steps {
-                sh 'newman run collections/collection1.json'
+                sh 'newman run collections/collection1.json -e prod.postman_environment.json'
             }
         }
 
         stage('Génération des rapports') {
             steps {
                 sh 'newman run collections/collection1.json -r cli,junit --reporter-junit-export="newman-report.xml"'
-                archiveArtifacts(artifacts: 'newman-report.html')
             }
         }
     }
@@ -24,7 +23,6 @@ pipeline {
     post {
         always {
             junit 'newman-report.xml'
-            archiveArtifacts artifacts: '*.html'
-        }
+            // archiveArtifacts artifacts: 'newman-report.html',        }
     }
 }
