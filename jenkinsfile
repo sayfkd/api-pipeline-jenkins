@@ -23,6 +23,7 @@ pipeline {
     post {
         always {
             junit 'newman-report.xml'
-            // archiveArtifacts artifacts: 'newman-report.html',        }
+            // archiveArtifacts artifacts: 'newman-report.html',        
+        }
     }
 }
