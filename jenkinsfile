@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Test API') {
             steps {
-                sh 'newman run collections/collection1.json -e prod.postman_environment.json'
+                sh 'newman run collections/collection1.json -e collections/prod.postman_environment.json'
             }
         }
 
