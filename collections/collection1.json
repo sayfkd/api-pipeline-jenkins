@@ -1,30 +1,41 @@
 {
 	"info": {
-		"_postman_id": "83cb2755-6a95-46cd-8a0b-83331af813c9",
-		"name": "Execution conditionnel",
+		"_postman_id": "74cc29bd-841c-4aa3-882e-f74f9e23cd6e",
+		"name": "Register",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "41273351"
 	},
 	"item": [
 		{
-			"name": "req1",
+			"name": "Register new user",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"let flag = pm.environment.get(\"flag\");",
-							" ",
-							"(flag ? pm.test : pm.test.skip)(\"test requete 2\", function () {",
-							"        pm.environment.set(\"flag\", false);",
-							"        pm.expect(true).to.be.true;",
-							"        pm.expect(true).to.be.true;",
-							"        console.log(\"ca change\");",
-							"        pm.environment.set(\"flag\", true);",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
 							"});",
 							"",
+							"pm.test(\"save de le nom\", function () {",
+							"    pm.collectionVariables.set(\"Post_employee_nom\", pm.response.json().nom);",
+							"});",
 							"",
-							""
+							"pm.test(\"test de conformite des properties\", function () {",
+							"    const body = pm.response.json();",
+							"    pm.expect(body).to.have.property('username');",
+							"    pm.expect(body).to.have.property('email')",
+							"    pm.expect(body).to.have.property('job');",
+							"    pm.expect(body).to.have.property('about_me');",
+							"});",
+							"",
+							"// pm.test(\"egalite de request et la reponse\", function () {",
+							"//     const response = pm.response.json();",
+							"//     pm.expect(JSON.parse(pm.request.body.raw).username).to.equal(response.username)",
+							"//     pm.expect(JSON.parse(pm.request.body.raw).email).to.equal(response.email)",
+							"//     pm.expect(JSON.parse(pm.request.body.raw).job).to.equal(response.job)",
+							"//     pm.expect(JSON.parse(pm.request.body.raw).about_me).to.equal(response.about_me)",
+							"// });"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -34,7 +45,23 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"pm.environment.set(\"flag\", true);"
+							"pm.collectionVariables.set(\"psw\", pm.variables.replaceIn(\"{{$randomPassword}}\"));",
+							"",
+							"pm.test(\"Vérification que les deux psw sont égaux\", function () {",
+							"    let password1 = pm.request.body.raw.password1",
+							"    let password2 = pm.request.body.raw.password2",
+							"    pm.expect(password1).to.equal(password2);",
+							"});",
+							"",
+							"pm.test(\"Vérifier la présence des champs obligatoires\", function () {",
+							"    let requestBody = JSON.parse(pm.request.body.raw)",
+							"    pm.expect(requestBody).to.have.property(\"username\");",
+							"    pm.expect(requestBody).to.have.property(\"email\");",
+							"    pm.expect(requestBody).to.have.property(\"password1\");",
+							"    pm.expect(requestBody).to.have.property(\"password2\");",
+							"});",
+							"",
+							"pm.execution.setNextRequest(\"get the user registred\");"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -45,54 +72,33 @@
 				"auth": {
 					"type": "noauth"
 				},
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"username\": \"{{$randomFileName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password1\":\"{{psw}}\",\n    \"password2\": \"{{psw}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "https://reqres.in/api/users?page=2",
-					"protocol": "https",
+					"raw": "{{url}}/api/register/",
 					"host": [
-						"reqres",
-						"in"
+						"{{url}}"
 					],
 					"path": [
 						"api",
-						"users"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "2"
-						}
+						"register",
+						""
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "req 2 ",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let flag = pm.environment.get(\"flag\");",
-							" ",
-							"(flag ? pm.test : pm.test.skip)(\"test requete 2\", function () {",
-							"        pm.environment.set(\"flag\", false);",
-							"        pm.expect(true).to.be.true;",
-							"        pm.expect(true).to.be.true;",
-							"        console.log(\"ca change\");",
-							"        pm.environment.set(\"flag\", true);",
-							"});",
-							"",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
+			"name": "get the user registred",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -100,125 +106,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://reqres.in/api/users?page=2",
-					"protocol": "https",
+					"raw": "{{url}}/api/posts",
 					"host": [
-						"reqres",
-						"in"
+						"{{url}}"
 					],
 					"path": [
 						"api",
-						"users"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "2"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "req 3",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let flag = pm.environment.get(\"flag\");",
-							" ",
-							"(flag ? pm.test : pm.test.skip)(\"test requete 2\", function () {",
-							"        pm.environment.set(\"flag\", false);",
-							"        pm.expect(true).to.be.true;",
-							"        pm.expect(true).to.be.true;",
-							"        console.log(\"ca change\");",
-							"        pm.environment.set(\"flag\", true);",
-							"});",
-							"",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://reqres.in/api/users?page=2",
-					"protocol": "https",
-					"host": [
-						"reqres",
-						"in"
-					],
-					"path": [
-						"api",
-						"users"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "2"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "req4",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let flag = pm.environment.get(\"flag\");",
-							" ",
-							"(flag ? pm.test : pm.test.skip)(\"test requete 2\", function () {",
-							"        pm.environment.set(\"flag\", false);",
-							"        pm.expect(true).to.be.true;",
-							"        pm.expect(true).to.be.true;",
-							"        console.log(\"ca change\");",
-							"        pm.environment.set(\"flag\", true);",
-							"});",
-							"",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://reqres.in/api/users?page=2",
-					"protocol": "https",
-					"host": [
-						"reqres",
-						"in"
-					],
-					"path": [
-						"api",
-						"users"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "2"
-						}
+						"posts"
 					]
 				}
 			},
@@ -249,9 +143,12 @@
 	],
 	"variable": [
 		{
-			"key": "flag",
-			"value": "true",
-			"type": "string"
+			"key": "Post_employee_nom",
+			"value": ""
+		},
+		{
+			"key": "psw",
+			"value": ""
 		}
 	]
 }
