@@ -1,0 +1,257 @@
+{
+	"info": {
+		"_postman_id": "83cb2755-6a95-46cd-8a0b-83331af813c9",
+		"name": "Execution conditionnel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41273351"
+	},
+	"item": [
+		{
+			"name": "req1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let flag = pm.environment.get(\"flag\");",
+							" ",
+							"(flag ? pm.test : pm.test.skip)(\"test requete 2\", function () {",
+							"        pm.environment.set(\"flag\", false);",
+							"        pm.expect(true).to.be.true;",
+							"        pm.expect(true).to.be.true;",
+							"        console.log(\"ca change\");",
+							"        pm.environment.set(\"flag\", true);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"flag\", true);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "req 2 ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let flag = pm.environment.get(\"flag\");",
+							" ",
+							"(flag ? pm.test : pm.test.skip)(\"test requete 2\", function () {",
+							"        pm.environment.set(\"flag\", false);",
+							"        pm.expect(true).to.be.true;",
+							"        pm.expect(false).to.be.true;",
+							"        console.log(\"ca change\");",
+							"        pm.environment.set(\"flag\", true);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "req 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let flag = pm.environment.get(\"flag\");",
+							" ",
+							"(flag ? pm.test : pm.test.skip)(\"test requete 2\", function () {",
+							"        pm.environment.set(\"flag\", false);",
+							"        pm.expect(true).to.be.true;",
+							"        pm.expect(true).to.be.true;",
+							"        console.log(\"ca change\");",
+							"        pm.environment.set(\"flag\", true);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "req4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let flag = pm.environment.get(\"flag\");",
+							" ",
+							"(flag ? pm.test : pm.test.skip)(\"test requete 2\", function () {",
+							"        pm.environment.set(\"flag\", false);",
+							"        pm.expect(true).to.be.true;",
+							"        pm.expect(true).to.be.true;",
+							"        console.log(\"ca change\");",
+							"        pm.environment.set(\"flag\", true);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "flag",
+			"value": "true",
+			"type": "string"
+		}
+	]
+}

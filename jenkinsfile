@@ -1,0 +1,30 @@
+pipeline{
+    agent{
+        docker{
+            image "postman/newman"
+            args "--entrypoint=''"
+        }
+    }
+    
+    stages{
+        stage('test api'){
+            steps{
+                sf 'newman run collections/collection1.json'
+            }
+        }
+    }
+
+    stages{
+        stage('generation des rapport '){
+            steps{
+                sf 'newman run collections/collection1.json -r cli,junit --reporter-junit-export="newman-report.xml'
+            }
+        }
+    }
+
+    post{
+        awlays{
+            junit 'newman-report.xml'
+        }
+    }
+}
