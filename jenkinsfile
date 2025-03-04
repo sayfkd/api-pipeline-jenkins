@@ -1,17 +1,15 @@
 pipeline {
-    agent {
-        docker {
-            image 'postman/newman'
-            // --entrypoint=''
-        }
-    }
-
+    agent any
     stages {
         stage('Test API') {
-            steps {
-                script {
-                    sh 'newman run collections/collection1.json'
+            agent {
+                docker {
+                    image 'postman/newman'
+                    //args '--entrypoint=""'  // Si nécessaire
                 }
+            }
+            steps {
+                sh 'newman run collections/collection1.json'
             }
         }
     }
