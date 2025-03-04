@@ -5,11 +5,22 @@ pipeline{
             args '--entrypoint=""'
         }
     }
+ triggers { upstream(upstreamProjects: 'fastapi', threshold: hudson.model.Result.SUCCESS) }
     stages{
         stage('verifier la version de newman'){
             steps{
                 sh "newman --version"
                    }
+        }
+        stage('test api'){
+            steps{
+                sh 'newman run collections/collectionfastapi8001.json -r cli,junit --reporter-junit-export="newman-report.xml"'
+            }
+        }
+    }
+    post{
+        always{
+            junit 'newman-report.xml'
         }
     }
 }
