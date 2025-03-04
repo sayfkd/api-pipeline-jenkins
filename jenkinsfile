@@ -8,7 +8,7 @@ pipeline{
     stages{
         stage('verifier la version de newman'){
             steps{
-                sh "newman --version"
+                sh "newman --version" // test
                    }
         }
     }
