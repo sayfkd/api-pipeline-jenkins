@@ -1,17 +1,15 @@
 pipeline{
-    agent any
+    agent{
+        docker{
+            image "postman/newman"
+            args '--entrypoint=""'
+        }
+    }
     stages{
         stage('verifier la version de newman'){
-        agent{
-            docker{
-                image "postman/newman"
-                args '--entrypoint=""'
-            }
-        }
             steps{
-                sh "newman --version" // test
+                sh "newman --version"
                    }
         }
     }
 }
-
