@@ -1,67 +1,41 @@
 {
 	"info": {
-		"_postman_id": "74cc29bd-841c-4aa3-882e-f74f9e23cd6e",
-		"name": "Register",
+		"_postman_id": "3ca4748c-8116-4a31-a01d-2f71b47c29f9",
+		"name": "CI CD TESTS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "41273351"
 	},
 	"item": [
 		{
-			"name": "Register new user",
+			"name": "1st get",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Get ",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"save de le nom\", function () {",
-							"    pm.collectionVariables.set(\"Post_employee_nom\", pm.response.json().nom);",
+							"pm.test(\"Verify the presence of 'message' field in the response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('message');",
 							"});",
-							"",
-							"pm.test(\"test de conformite des properties\", function () {",
-							"    const body = pm.response.json();",
-							"    pm.expect(body).to.have.property('username');",
-							"    pm.expect(body).to.have.property('email')",
-							"    pm.expect(body).to.have.property('job');",
-							"    pm.expect(body).to.have.property('about_me');",
-							"});",
-							"",
-							"// pm.test(\"egalite de request et la reponse\", function () {",
-							"//     const response = pm.response.json();",
-							"//     pm.expect(JSON.parse(pm.request.body.raw).username).to.equal(response.username)",
-							"//     pm.expect(JSON.parse(pm.request.body.raw).email).to.equal(response.email)",
-							"//     pm.expect(JSON.parse(pm.request.body.raw).job).to.equal(response.job)",
-							"//     pm.expect(JSON.parse(pm.request.body.raw).about_me).to.equal(response.about_me)",
-							"// });"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"pm.collectionVariables.set(\"psw\", pm.variables.replaceIn(\"{{$randomPassword}}\"));",
-							"",
-							"pm.test(\"Vérification que les deux psw sont égaux\", function () {",
-							"    let password1 = pm.request.body.raw.password1",
-							"    let password2 = pm.request.body.raw.password2",
-							"    pm.expect(password1).to.equal(password2);",
-							"});",
-							"",
-							"pm.test(\"Vérifier la présence des champs obligatoires\", function () {",
-							"    let requestBody = JSON.parse(pm.request.body.raw)",
-							"    pm.expect(requestBody).to.have.property(\"username\");",
-							"    pm.expect(requestBody).to.have.property(\"email\");",
-							"    pm.expect(requestBody).to.have.property(\"password1\");",
-							"    pm.expect(requestBody).to.have.property(\"password2\");",
-							"});",
-							"",
-							"pm.execution.setNextRequest(\"get the user registred\");"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -72,83 +46,21 @@
 				"auth": {
 					"type": "noauth"
 				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n     \"username\": \"{{$randomFileName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password1\":\"{{psw}}\",\n    \"password2\": \"{{psw}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/api/register/",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"register",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get the user registred",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/posts",
+					"raw": "http://localhost:8001/login",
+					"protocol": "http",
 					"host": [
-						"{{url}}"
+						"localhost"
 					],
+					"port": "8001",
 					"path": [
-						"api",
-						"posts"
+						"login"
 					]
 				}
 			},
 			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "Post_employee_nom",
-			"value": ""
-		},
-		{
-			"key": "psw",
-			"value": ""
 		}
 	]
 }
