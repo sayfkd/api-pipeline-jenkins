@@ -5,7 +5,7 @@ pipeline{
             args '--entrypoint=""'
         }
     }
-    triggers { upstream(upstreamProjects: 'fastapi', threshold: hudson.model.Result.SUCCESS) }
+    //triggers { upstream(upstreamProjects: 'fastapi', threshold: hudson.model.Result.SUCCESS) }
     stages{
         stage('verifier la version de newman'){
             steps{
