@@ -18,8 +18,7 @@
 							"});",
 							"",
 							"pm.test(\"Verify the presence of 'message' field in the response\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.have.property('message');",
+							"        pm.expect(pm.response.json()).to.have.property('message');",
 							"});",
 							""
 						],
@@ -60,8 +59,7 @@
 							"});",
 							"",
 							"pm.test(\"Verify the presence of 'message' field in the response\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.have.property('message');",
+							"    pm.expect(pm.response.json()).to.have.property('message');",
 							"});",
 							""
 						],
