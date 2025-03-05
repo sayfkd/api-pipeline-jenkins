@@ -2,7 +2,6 @@ pipeline{
     agent{
         docker{
             image "postman/newman"
-            args '--entrypoint=""'
         }
     }
     triggers { upstream(upstreamProjects: 'fastapi', threshold: hudson.model.Result.SUCCESS) }
@@ -12,13 +11,6 @@ pipeline{
                 sh "newman --version"
                    }
         }
-    stage('verifier la connection'){
-        steps {
-        sh '''
-           sh "wget --spider http://host.docker.internal:8001/ || echo 'API inaccessible'"
-        '''
-    }
-    }
         stage('test api'){
             steps{
                 sh 'newman run collections/collection1.json'
