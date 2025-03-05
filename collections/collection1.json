@@ -34,7 +34,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8001/",
+					"raw": "http://host.docker.internal:8001/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -75,7 +75,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8001/login",
+					"raw": "http://host.docker.internal:8001/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
