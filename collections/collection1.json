@@ -18,10 +18,8 @@
 							"});",
 							"",
 							"pm.test(\"Verify the presence of 'message' field in the response\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.have.property('message');",
-							"});",
-							""
+							"        pm.expect(pm.response.json()).to.have.property('message');",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -35,10 +33,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8001/",
+					"raw": "http://127.0.0.1:8001/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8001",
 					"path": [
@@ -60,10 +61,8 @@
 							"});",
 							"",
 							"pm.test(\"Verify the presence of 'message' field in the response\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.have.property('message');",
-							"});",
-							""
+							"    pm.expect(pm.response.json()).to.have.property('message');",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -77,10 +76,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8001/login",
+					"raw": "http://127.0.0.1:8001/login",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8001",
 					"path": [
