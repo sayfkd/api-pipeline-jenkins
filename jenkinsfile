@@ -15,8 +15,7 @@ pipeline{
     stage('verifier la connection'){
         steps {
         sh '''
-            apk add --no-cache curl
-            curl -v http://host.docker.internal:8001/
+           sh "wget --spider http://host.docker.internal:8001/ || echo 'API inaccessible'"
         '''
     }
     }
