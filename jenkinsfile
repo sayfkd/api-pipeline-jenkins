@@ -13,13 +13,12 @@ pipeline{
                    }
         }
     stage('verifier la connection'){
-        steps{
-            sh '''
-                apt-get update
-                apt-get install -y curl
-                curl -v http://host.docker.internal:8001/
-            '''
-        }
+        steps {
+        sh '''
+            apk add --no-cache curl
+            curl -v http://host.docker.internal:8001/
+        '''
+    }
     }
         stage('test api'){
             steps{
