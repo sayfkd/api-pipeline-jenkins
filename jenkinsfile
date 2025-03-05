@@ -14,6 +14,7 @@ pipeline{
         }
         stage('verifier la connection'){
             steps{
+                sh "apt-get update && apt-get install -y curl"
                 sh "curl -v http://host.docker.internal:8001/"
                    }
         }
